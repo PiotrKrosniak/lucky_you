@@ -14,7 +14,7 @@
     <meta name="generator" content="Nicepage 4.3.3, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
     
-    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&sensor=false"></script>
     
     
     
@@ -303,7 +303,9 @@
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-7854"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-      </div></footer>
+      </div>
+      <div id="map-canvas"></div>
+    </footer>
     <section class="u-backlink u-clearfix u-grey-80">
       <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
         <span>Website Templates</span>
@@ -315,5 +317,85 @@
         <span>Website Builder Software</span>
       </a>. 
     </section>
+
+    <script type="text/javascript">//<![CDATA[
+
+
+      function initialize() {
+      
+          // Create an array of styles.
+          var styles = [{
+              "stylers": [{
+                  "saturation": -100
+              }]
+          }, {
+              "featureType": "water",
+                  "stylers": [{
+                  "saturation": 100
+              }, {
+                  "color": "#ff3183"
+              }]
+          }];
+      
+          // Create a new StyledMapType object, passing it the array of styles, as well as the name to be displayed on the map type control.
+          var styledMap = new google.maps.StyledMapType(styles, {
+              name: "Styled Map"
+          });
+      
+          // Create a map object, and include the MapTypeId to add to the map type control.
+          var mapOptions = {
+              zoom: 13,
+              center: new google.maps.LatLng(-6.930710, 107.536030),
+              mapTypeControlOptions: {
+                  mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'map_style']
+              }
+          };
+      
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+      
+          const contentString =
+          '<div id="content">' +
+          '<div id="siteNotice">' +
+          "</div>" +
+          '<h1 id="firstHeading" class="firstHeading">Dirty River Indonesia Picture </h1>' +
+          '<div id="bodyContent">' +
+          "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+          '<img src="https://thumbs.dreamstime.com/z/jakarta-indonesia-september-dirty-river-heaped-garbage-polluting-water-water-pollution-concept-dirty-river-heaped-159165975.jpg">'+
+          "Heritage Site.</p>" +
+          '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+          "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+          "(last visited June 22, 2009).</p>" +
+          "</div>" +
+          "</div>";
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString,
+        });
+        const marker = new google.maps.Marker({
+          position: new google.maps.LatLng(-6.930710, 107.536030),
+          map,
+          title: "Uluru (Ayers Rock)",
+        });
+      
+        marker.addListener("click", () => {
+          infowindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
+        });
+          // Associate the styled map with the MapTypeId and set it to display.
+          map.mapTypes.set('map_style', styledMap);
+          map.setMapTypeId('map_style');
+      }
+      
+      initialize();
+      
+      
+        //]]></script>
+      
+
+
+
   </body>
 </html>
